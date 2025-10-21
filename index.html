@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Demo - Notes Partagées</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        #loginScreen {
+            display: block;
+        }
+
+        #appScreen {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        button.secondary {
+            background: #95a5f7;
+        }
+
+        button.secondary:hover {
+            background: #7e91f5;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+        }
+
+        .user-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-email {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            width: auto;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .note-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .note-content {
+            flex: 1;
+        }
+
+        .note-text {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .note-meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            width: auto;
+            margin: 0;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-style: italic;
+        }
+
+        .error {
+            background: #fee;
+            color: #c00;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #efe;
+            color: #0a0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .warning-box h3 {
+            color: #f57c00;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .warning-box p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .warning-box code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #d32f2f;
+            font-family: 'Courier New', monospace;
+        }
+
+        .notes-section {
+            margin-top: 30px;
+        }
+
+        .notes-section h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Firebase Demo</h1>
+
+        <!-- Écran de connexion -->
+        <div id="loginScreen">
+            <div class="info-box">
+                <h3>📝 Application de Notes Partagées</h3>
+                <p>Cette démo montre comment Firebase fonctionne. Créez un compte, ajoutez des notes, et elles seront synchronisées en temps réel !</p>
+                <p style="margin-top: 10px;"><strong>Test :</strong> Ouvrez cette page dans deux fenêtres différentes et voyez la magie opérer ! ✨</p>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Configuration requise</h3>
+                <p>Pour que cette démo fonctionne, vous devez configurer Firebase :</p>
+                <p style="margin-top: 10px;">1. Créez un projet sur <a href="https://console.firebase.google.com" target="_blank">Firebase Console</a></p>
+                <p>2. Activez Authentication (Email/Password et Google)</p>
+                <p>3. Créez une base Firestore</p>
+                <p>4. Remplacez la configuration dans le code</p>
+            </div>
+
+            <div id="errorMessage"></div>
+            <div id="successMessage"></div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="votre@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" placeholder="Minimum 6 caractères">
+            </div>
+
+            <button onclick="login()">Se connecter</button>
+            <button class="secondary" onclick="signup()">Créer un compte</button>
+
+            <div class="divider">───  Ou  ───</div>
+
+            <button class="secondary" onclick="signInWithGoogle()">🔵 Se connecter avec Google</button>
+        </div>
+
+        <!-- Écran principal -->
+        <div id="appScreen">
+            <div class="user-info">
+                <span class="user-email" id="userEmail"></span>
+                <button class="logout-btn" onclick="logout()">Déconnexion</button>
+            </div>
+
+            <div class="form-group">
+                <label for="noteText">Ajouter une note</label>
+                <input type="text" id="noteText" placeholder="Ex: Acheter du pain">
+            </div>
+            <button onclick="addNote()">➕ Ajouter</button>
+
+            <div class="notes-section">
+                <h3>📋 Notes partagées</h3>
+                <div id="notesList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // ⚠️ CONFIGURATION FIREBASE
+        // Remplacez ceci par VOTRE configuration depuis Firebase Console
+       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyD7dYwE2qrnzzKx0Eo9mv7q2zW_-2CW7qE",
+  authDomain: "budget-familliale.firebaseapp.com",
+  projectId: "budget-familliale",
+  storageBucket: "budget-familliale.firebasestorage.app",
+  messagingSenderId: "344511313815",
+  appId: "1:344511313815:web:b4cbbe56c830f674ba76d2",
+  measurementId: "G-HNYMWD6JGR"
+};
+
+        // Initialisation Firebase
+        let app, auth, db, provider;
+        
+        try {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            provider = new GoogleAuthProvider();
+        } catch (error) {
+            console.error("Erreur d'initialisation Firebase:", error);
+            showError("Firebase n'est pas configuré. Veuillez ajouter votre configuration.");
+        }
+
+        // Variables globales
+        window.auth = auth;
+        window.db = db;
+        window.provider = provider;
+
+        // Vérifier l'état de connexion
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                showAppScreen(user);
+                loadNotes();
+            } else {
+                showLoginScreen();
+            }
+        });
+
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('appScreen').style.display = 'none';
+        }
+
+        function showAppScreen(user) {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('appScreen').style.display = 'block';
+            document.getElementById('userEmail').textContent = user.email;
+        }
+
+        window.showAppScreen = showAppScreen;
+
+        // Fonction de connexion
+        window.login = async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                showSuccess('Connexion réussie !');
+            } catch (error) {
+                showError(getErrorMessage(error.code));
+            }
+        };
+
+        // Fonction d'inscription
+        window.signup = async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (password.length < 6) {
+                showError('Le mot de passe doit contenir au moins 6 caractères');
+                return;
+            }
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                showSuccess('Compte créé avec succès !');
+            } catch (error) {
+                showError(getErrorMessage(error.code));
+            }
+        };
+
+        // Connexion avec Google
+        window.signInWithGoogle = async function() {
+            try {
+                await signInWithPopup(auth, provider);
+                showSuccess('Connexion avec Google réussie !');
+            } catch (error) {
+                showError(getErrorMessage(error.code));
+            }
+        };
+
+        // Déconnexion
+        window.logout = async function() {
+            try {
+                await signOut(auth);
+                showSuccess('Déconnexion réussie !');
+            } catch (error) {
+                showError('Erreur lors de la déconnexion');
+            }
+        };
+
+        // Ajouter une note
+        window.addNote = async function() {
+            const noteText = document.getElementById('noteText').value.trim();
+            
+            if (!noteText) {
+                showError('Veuillez entrer une note');
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, 'notes'), {
+                    text: noteText,
+                    userId: auth.currentUser.uid,
+                    userEmail: auth.currentUser.email,
+                    timestamp: serverTimestamp()
+                });
+                
+                document.getElementById('noteText').value = '';
+            } catch (error) {
+                showError('Erreur lors de l\'ajout de la note');
+                console.error(error);
+            }
+        };
+
+        // Charger les notes en temps réel
+        function loadNotes() {
+            const q = query(collection(db, 'notes'), orderBy('timestamp', 'desc'));
+            
+            onSnapshot(q, (snapshot) => {
+                const notesList = document.getElementById('notesList');
+                notesList.innerHTML = '';
+
+                if (snapshot.empty) {
+                    notesList.innerHTML = '<div class="empty-state">Aucune note pour le moment. Ajoutez-en une !</div>';
+                    return;
+                }
+
+                snapshot.forEach((doc) => {
+                    const note = doc.data();
+                    const noteElement = createNoteElement(doc.id, note);
+                    notesList.appendChild(noteElement);
+                });
+            });
+        }
+
+        function createNoteElement(id, note) {
+            const div = document.createElement('div');
+            div.className = 'note-item';
+            
+            const content = document.createElement('div');
+            content.className = 'note-content';
+            
+            const text = document.createElement('div');
+            text.className = 'note-text';
+            text.textContent = note.text;
+            
+            const meta = document.createElement('div');
+            meta.className = 'note-meta';
+            meta.textContent = `Par ${note.userEmail}`;
+            
+            content.appendChild(text);
+            content.appendChild(meta);
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = '🗑️';
+            deleteBtn.onclick = () => deleteNote(id);
+            
+            div.appendChild(content);
+            if (note.userId === auth.currentUser.uid) {
+                div.appendChild(deleteBtn);
+            }
+            
+            return div;
+        }
+
+        // Supprimer une note
+        window.deleteNote = async function(noteId) {
+            try {
+                await deleteDoc(doc(db, 'notes', noteId));
+            } catch (error) {
+                showError('Erreur lors de la suppression');
+                console.error(error);
+            }
+        };
+
+        // Afficher les messages
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.className = 'error';
+            errorDiv.textContent = message;
+            setTimeout(() => errorDiv.textContent = '', 5000);
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.className = 'success';
+            successDiv.textContent = message;
+            setTimeout(() => successDiv.textContent = '', 3000);
+        }
+
+        function getErrorMessage(errorCode) {
+            const messages = {
+                'auth/invalid-email': 'Email invalide',
+                'auth/user-disabled': 'Ce compte a été désactivé',
+                'auth/user-not-found': 'Aucun compte avec cet email',
+                'auth/wrong-password': 'Mot de passe incorrect',
+                'auth/email-already-in-use': 'Cet email est déjà utilisé',
+                'auth/weak-password': 'Mot de passe trop faible',
+                'auth/operation-not-allowed': 'Opération non autorisée',
+                'auth/invalid-credential': 'Email ou mot de passe incorrect'
+            };
+            return messages[errorCode] || 'Une erreur est survenue';
+        }
+
+        window.showError = showError;
+        window.showSuccess = showSuccess;
+    </script>
+</body>
+</html>
