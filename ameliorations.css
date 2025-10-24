@@ -1,0 +1,682 @@
+/**
+ * STYLES POUR LES AMÉLIORATIONS
+ * À intégrer dans le fichier HTML principal
+ */
+
+/* ============================================================================
+   1. IMPORT/EXPORT UI
+   ============================================================================ */
+
+.import-export-section {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+}
+
+.import-export-section h3 {
+  margin-bottom: 15px;
+  color: var(--text-1);
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.import-export-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-export,
+.btn-import {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  font-size: 15px;
+}
+
+.btn-export {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.btn-export:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+}
+
+.btn-import {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-import:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+}
+
+/* Input file caché */
+#import-file-input {
+  display: none;
+}
+
+/* ============================================================================
+   2. STATISTIQUES
+   ============================================================================ */
+
+.stats-report {
+  padding: 20px;
+}
+
+.stats-section {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.stats-section h3 {
+  color: var(--primary);
+  font-size: 1.3em;
+  font-weight: 800;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border-color: var(--primary);
+}
+
+.stat-value {
+  display: block;
+  font-size: 2.5em;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9em;
+  color: var(--text-2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stats-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stats-list li {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.stats-list li:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(5px);
+}
+
+.stats-list .count {
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================================================
+   3. RACCOURCIS CLAVIER
+   ============================================================================ */
+
+.shortcuts-help {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+}
+
+.shortcuts-help h3 {
+  color: var(--text-1);
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.shortcuts-help ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shortcuts-help li {
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.shortcuts-help kbd {
+  background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #212529;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85em;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2),
+              inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #adb5bd;
+  min-width: 80px;
+  text-align: center;
+}
+
+.shortcuts-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(30, 41, 59, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  z-index: 900;
+  max-width: 300px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.shortcuts-indicator:hover {
+  opacity: 1;
+}
+
+.shortcuts-indicator-title {
+  font-weight: 700;
+  font-size: 0.9em;
+  color: var(--text-1);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shortcuts-indicator-list {
+  font-size: 0.8em;
+  color: var(--text-3);
+  line-height: 1.6;
+}
+
+/* ============================================================================
+   4. LOADING & SKELETON
+   ============================================================================ */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.skeleton-card {
+  height: 150px;
+  margin-bottom: 20px;
+}
+
+/* ============================================================================
+   5. EMPTY STATES
+   ============================================================================ */
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+.empty-icon {
+  font-size: 4em;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--text-1);
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.empty-state p {
+  color: var(--text-3);
+  font-size: 1em;
+  margin-bottom: 25px;
+}
+
+/* ============================================================================
+   6. TOAST AMÉLIORÉ
+   ============================================================================ */
+
+.toast.warning {
+  border-left: 4px solid var(--warning);
+}
+
+.toast-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.toast-action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toast-action-btn.undo {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.toast-action-btn.undo:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.toast-action-btn.dismiss {
+  background: transparent;
+  color: var(--text-3);
+}
+
+/* ============================================================================
+   7. STORAGE INDICATOR
+   ============================================================================ */
+
+.storage-indicator {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.storage-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.storage-used {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.storage-used.warning {
+  background: linear-gradient(90deg, var(--warning), #ea580c);
+}
+
+.storage-used.danger {
+  background: linear-gradient(90deg, var(--danger), #dc2626);
+}
+
+.storage-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85em;
+  color: var(--text-3);
+}
+
+/* ============================================================================
+   8. DUPLICATE BUTTON
+   ============================================================================ */
+
+.btn-duplicate {
+  background: rgba(139, 92, 246, 0.2);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.btn-duplicate:hover {
+  background: rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ============================================================================
+   9. ACCESSIBILITY
+   ============================================================================ */
+
+/* Focus visible pour navigation clavier */
+*:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  z-index: 10000;
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* ============================================================================
+   10. PRINT STYLES
+   ============================================================================ */
+
+@media print {
+  /* Masquer les éléments non nécessaires */
+  .nav-buttons,
+  .back-button,
+  .cell-actions,
+  .btn-clear,
+  .random-meal-btn,
+  .btn,
+  .toast,
+  .shortcuts-indicator,
+  header,
+  .import-export-section {
+    display: none !important;
+  }
+
+  /* Optimiser pour A4 */
+  @page {
+    size: A4;
+    margin: 2cm;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  .content {
+    background: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Éviter les sauts de page */
+  .week-card,
+  .recipe-card,
+  .ingredient-card,
+  .shopping-category {
+    page-break-inside: avoid;
+  }
+
+  /* Styles de tableau pour impression */
+  .menu-table {
+    border-collapse: collapse;
+  }
+
+  .menu-table th,
+  .menu-table td {
+    border: 1px solid #000 !important;
+    padding: 10px !important;
+  }
+
+  /* Titres clairs */
+  h1, h2, h3 {
+    color: #000 !important;
+  }
+}
+
+/* ============================================================================
+   11. MOBILE RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .import-export-buttons {
+    flex-direction: column;
+  }
+
+  .btn-export,
+  .btn-import {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .shortcuts-indicator {
+    display: none; /* Masquer sur mobile */
+  }
+
+  .empty-state {
+    padding: 40px 15px;
+  }
+
+  .empty-icon {
+    font-size: 3em;
+  }
+
+  /* Menu table horizontal scroll */
+  .menu-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu-table {
+    min-width: 600px;
+  }
+
+  /* Sticky first column */
+  .menu-table td:first-child,
+  .menu-table th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background: var(--bg-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-value {
+    font-size: 2em;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================================
+   12. DARK MODE AUTO (système)
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary: #667eea;
+    --primary-dark: #5568d3;
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    /* Autres variables... */
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    /* Autres variables... */
+  }
+}
+
+/* ============================================================================
+   13. ANIMATIONS AMÉLIORÉES
+   ============================================================================ */
+
+/* Transition de page fluide */
+.view {
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view.active {
+  animation-name: fadeInUp;
+}
+
+/* Pulse pour notifications */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.notification-badge {
+  animation: pulse 2s infinite;
+}
+
+/* Shake pour erreurs */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.error-shake {
+  animation: shake 0.5s;
+}
